@@ -1,0 +1,32 @@
+package com.xcsd.edu.parent.message;
+import "XCSDHomework.proto";
+option java_package = "com.xcsd.rpc.proto";
+option java_outer_classname = "LearningAbilityProto";
+
+//各项学习能力
+enum Ability {
+	Attention = 1;			//专注力
+	Memory = 2;				//记忆力
+	Reaction = 3;			//反应力
+	Reasoning = 4;			//思维力
+	SpatialThinking = 5;	//空间思维
+}
+
+//能力值
+message AbilityValue {
+	required Ability ability = 1;
+	required int32 value = 2;
+}
+
+//班级学习能力排行榜
+//URL:/learning_ability/ranking
+message ClassAbilityRankingRequest {
+	required int64 classId = 1;
+}
+
+message ClassAbilityRankingResponse {
+	repeated UserRank rankList = 1;	//UserRank <= import Homework.proto
+}
+
+import "google/protobuf/objectivec-descriptor.proto";
+option (google.protobuf.objectivec_file_options).class_prefix = "XCSDPB";

@@ -1,0 +1,60 @@
+package com.xcsd.edu.parent.message;
+
+option java_package = "com.xcsd.rpc.proto";
+option java_outer_classname = "DataProto";
+
+enum EventType {		//type		bid类型
+	APP_LOGIN = 1;		//APP登陆		不需要
+	APP_LOGOUT = 2;		//APP登出		不需要
+	CHANNEL_IN = 3;		//功能模块进入	channelId(模块ID)
+	CHANNEL_OUT = 4;	//功能模块退出	channelId
+	GAME_IN = 5;		//进入游戏		gameId
+	GAME_OUT = 6;		//退出游戏		gameId
+	LESSON_IN = 7;		//进入课程		lessonId
+	LESSON_OUT = 8;		//退出课程		lessonId
+	ARTICLE_IN = 9;		//点击文章		articleId
+	ARTICLE_OUT = 10;	//退出文章		articleId
+	SINGLE_CHAT = 11;	//单聊		toPid
+	GROUP_CHAT = 12;	//群聊		groupId
+	TEACHER_GROUP_CHAT = 13;	//教师群聊		groupId
+	UNIFIED_HOMEWORK = 14;		//布置自主作业	targetClassId
+	CUSTOMIZED_HOMEWORK = 15;	//布置定制作业	targetClassId
+	COMPLETED_TEST = 16;		//完成的测评	testId
+	FEED = 17;				//发布朋友圈	不需要	
+	COMMENT_FEED = 18;		//评论朋友圈	feedId
+	LIKE_FEED = 19;			//点赞朋友圈	feedId
+	ASK_QUESTION = 20;		//提问		不需要
+	ANSWER_QUESTION = 21;	//回答问题		questionId
+	COMMENT_ANSWER = 22;	//评论答案		anwserId
+	LIKE_ANSWER = 23;		//点赞答案		anwserId
+	NOTICE = 24;			//发通知		不需要
+	SHARE_ARTICLE = 25;		//分享文章		articleId	ext:type 1朋友圈 2微信 3QQ 4复制链接
+	LESSON_SCORE = 26;		//课程评分		lessonId	ext:score 几颗星
+	FINISH_HOMEWORK = 27;	//完成作业		memberId	ext:score 总得分
+	GAME_TEST = 28;			//完成学能测试	testId
+	ENTER_BACKGROUND = 29;	//进入后台		不需要
+	ENTER_FOREGROUND = 30;	//切回前台		不需要
+	READ_NOTICE = 31;		//查看通知		noticeId
+}
+
+message Event {
+	required int64 userId = 1;		//触发事件的用户ID
+	required EventType eventType = 2;
+	optional string bid = 3;		
+	required int64 timestamp = 4;	//业务时间
+	optional string extendedInfo = 5;	//扩展信息 考虑用json或直接写值  标注有ext:的需要填
+}
+
+//URL:/data/event
+message ReportEventRequest {
+	required int64 serialNo = 1;	//客户端批次号
+	repeated Event eventList = 2;
+	optional int64 sendTime = 3;	//客户端发送时的时间戳
+}
+
+message ReportEventResponse {
+	required int32 result = 1;			//1成功  2失败 3已处理
+	optional string msg = 2;
+	optional int64 serialNo = 3;		//返回客户端发送的批次号
+	optional int64 sysTimestamp = 4;	//服务器系统时间戳
+}

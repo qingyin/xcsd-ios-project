@@ -1,0 +1,188 @@
+package com.xcsd.edu.parent.message;
+
+option java_package = "com.xcsd.rpc.proto";
+option java_outer_classname = "HomeworkProto";
+
+enum HomeworkStatus {
+	UNFINISHED = 0;
+	FINISHED = 1;
+}
+
+enum HomeworkType {
+	CUSTOMIZED = 1;		//定制作业
+	UNIFIED = 2;		//统一作业
+}
+
+//定制作业 选择学生的范围
+enum StudentScope {
+	ALL = 1;
+	NORMAL = 2;
+	SPECIAL = 3;
+}
+
+//家长端接口
+//作业结构体
+message Homework {
+	required int64 id = 1;			//作业展示ID，对应家长端显示的信息，删除时传此ID
+	required int64 memberId = 2;	//作业成员ID，对应参与作业的儿童，在点击作业条目时给html5传此ID
+	required string title = 3;
+    required int64 sendUserId = 4;
+    optional string senderName = 5;
+    optional string senderAvatar = 6;
+    optional string targetName = 7;
+    required HomeworkStatus status = 8;		//状态 0待做 1已做
+    optional bool hasRead = 9;				//0未读 1已读
+    required int64 sendTime = 10;
+}
+
+//获取作业列表
+//URL:/homework/list
+message HomeworkListRequest {
+	optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+}
+
+message HomeworkListResponse {
+	repeated Homework homeworks = 1;
+    required bool hasMore = 2;
+}
+
+//读作业通知
+//URL:/homework/read_notice
+message ReadHomeworkNoticeRequest {
+	required int64 homeworkNoticeId = 1;
+}
+
+message ReadHomeworkNoticeResponse {
+
+}
+
+//删除作业通知
+//URL:/homework/delete_notice
+message DeleteHomeworkNoticeRequest {
+	required int64 homeworkNoticeId = 1;
+}
+
+message DeleteHomeworkNoticeResponse {
+
+}
+
+//获取作业排名
+//URL:/homework/ranking
+message HomeworkRankingRequest {
+	optional int64 childUserId = 1;
+	optional int64 classId = 2;
+}
+//用户通用排名
+message UserRank {
+	required int32 rank = 1;
+	required int64 userId = 2;
+	optional string name = 3;
+	optional string avatar = 4;
+	required int32 score = 5;
+}
+	
+message HomeworkRankingResponse {
+	repeated UserRank rankList = 1;
+}
+
+//获取本月作业情况统计月历
+//URL:/homework/calendar
+message HomeworkCalendarRequest {
+	required int64 childUserId = 1;
+}
+
+message HomeworkCalendarResponse {
+	repeated int32 unfinished = 1;	//未完成的日期
+	repeated int32 finished = 2;	//完成的日期
+}
+
+//家长端接口 end
+
+//教师端接口
+
+message ClassHomework {
+	required int64 homeworkId = 1;
+	required string className = 2;		//班级名称
+	required string title = 3;
+	required HomeworkType type = 4;		//1定制作业 2统一作业
+	required int64 sendTime = 5;
+	optional int32 finishedCount = 6;	//完成作业的数量
+	optional int32 totalCount = 7;		//总数量
+}
+
+//获取发送的作业列表
+//URL:/homework/sent_list
+message HomeworkSentListRequest {
+	optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+}
+
+message HomeworkSentListResponse {
+	repeated ClassHomework homeworks = 1;
+	required bool hasMore = 2;
+}
+
+message HomeworkMember {
+	required int64 memberId = 1;
+	required string name = 2;
+	optional string avatar = 3;
+	required HomeworkStatus status = 4;
+	optional int32 score = 5;
+	optional bool specialAttention = 6;
+}
+
+//获取作业成员列表
+//URL:/homework/members
+message HomeworkMemberListRequest {
+	required int64 homeworkId = 1;
+	optional int32 pageNum = 2;		//翻页的页数 首页可不传
+}
+
+message HomeworkMemberListResponse {
+	repeated HomeworkMember members = 1;
+	required bool hasMore = 2;
+}
+
+//生成定制作业
+//URL:/homework/generate
+message GenerateHomeworkRequest {
+	required int64 classId = 1;
+}
+
+message GenerateHomeworkResponse {
+	message UserHomework {
+		required int64 childUserId = 1;
+		required string name = 2;
+		optional string avatar = 3;
+		required int32 generateCount = 4;	//作业生成数量
+		required int32 remainMaxCount = 5;	//当前最多能布置的作业数量
+		optional bool specialAttention = 6;	//是否是特别关注学生
+	}
+	repeated UserHomework userHomeworks = 1;
+}
+
+//发送定制作业
+//URL:/homework/send
+message SendHomeworkRequest {
+	required int64 classId = 1;
+	required StudentScope scope = 2;
+}
+
+message SendHomeworkResponse {
+
+}
+
+//获取可发送的作业数量
+//URL:/homework/remaining_count
+message HomeworkRemainingCountRequest {
+	required int64 classId = 1;
+}
+
+message HomeworkRemainingCountResponse {
+	required bool customizedStatus = 1;		//定制作业是否可以发送
+	required int32 unifiedCount = 2;		//统一作业剩余数量
+}
+
+import "google/protobuf/objectivec-descriptor.proto";
+option (google.protobuf.objectivec_file_options).class_prefix = "XCSDPB";

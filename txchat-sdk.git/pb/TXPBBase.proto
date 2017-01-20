@@ -1,0 +1,18 @@
+import "google/protobuf/objectivec-descriptor.proto";
+option (google.protobuf.objectivec_file_options).class_prefix = "TXPB";
+
+option java_package = "com.tuxing.rpc.proto";
+option java_outer_classname = "MessagePb";
+
+message Request {
+    optional string url = 1;
+    optional bytes body = 2;
+    optional string token = 3;
+    optional string version = 4;
+}
+
+message Response {
+    required int32 status = 1;
+    optional string statusTxt=2;
+    optional bytes body = 3;
+}

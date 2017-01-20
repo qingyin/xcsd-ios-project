@@ -1,0 +1,1392 @@
+//import "google/protobuf/objectivec-descriptor.proto";
+//option (google.protobuf.objectivec_file_options).class_prefix = "TXPB";
+
+option java_package = "com.tuxing.rpc.proto";
+
+option java_outer_classname = "TxProto";
+
+//家长类型
+enum ParentType {
+    FATHER = 1;
+    MOTHER = 2;
+    FATHERSFATHER = 3;
+    FATHERSMOTHER = 4;
+    MOTHERSFATHER = 5;
+    MOTHERSMOTHER = 6;
+    OTHERPARENTTYPE = 100;
+}
+
+//用户类型
+enum UserType {
+    CHILD = 1;
+    PARENT = 2;
+    TEACHER = 3;
+    PARTNER = 4;
+    EXPERT = 5;
+}
+
+//用户类型
+enum DepartmentType {
+    GARDEN = 1; //园
+    CLAZZ = 2; //班级
+    GROUP_GARDEN = 3; //集团园
+    EDUCATION = 4; //教委
+    OTHERDEPARTMENTTYPE = 100;
+    DEPARTMENT = 5; //部门
+    INTEREST_CLAZZ = 6; //兴趣班
+    SCHOOL = 11;    //小学
+    GRADE = 12;     //年级
+}
+
+//操作类型
+enum ActionType {
+    ADD = 1; //添加
+    UPDATE = 2; //修改
+    ADD_OR_UPDATE = 3; //添加或修改，由客户端自己判断
+    DELETE = 4;
+}
+
+//附件类型
+enum AttachType {
+    PIC = 1; //图片
+    AUDIO = 2; //语音
+    VEDIO = 3; //视频
+    OTHERATTACHTYPE = 4; //其它
+}
+
+//免打扰类型
+enum ExemptDisturbType {
+    CLOSE = 1; //关闭
+    NIGHT = 2; //夜间
+    ALL = 3; //全天
+}
+
+//性别类型
+enum SexType {
+    FEMALE = 1; //女
+    MALE = 2; //男
+}
+
+//职位类型
+enum PositionType {
+    PRINCIPAL = 1; //园长
+    VICE_PRINCIPAL = 2; //副园长
+}
+
+enum ErrorCode {
+    SUC = 200;
+    NOTFOUND = 404;
+    NOTALLOW = 403;
+    ERROR = 500;
+
+    KICKOFF = 1001; //被T
+    TOKEN_EXPIRED = 1002; //TOKEN过期
+}
+
+enum PushType {
+    NOTICE = 1;
+    CHECKIN = 2;
+    GAKUEN = 3;
+    MEDICINE = 4;
+    VOICECODE = 5;
+    PUSH_LERNGARDEN = 6;
+    PUSH_REST = 7;
+    PUSH_APPROVE = 8;
+    PUSH_COMMUNION = 9;
+}
+
+enum PlatformType {
+    IOS = 1;
+    ANDROID = 2;
+}
+
+enum SendSmsCodeType {
+    FORGET_PASSWORD = 1; //忘记密码
+    ACTIVATE = 2; //激活
+    INVITATION_ACTIVATE = 3; //邀请激活
+    UPDATE_MOBILE = 4; //修改手机号
+}
+
+//考勤状态
+enum AttendanceStatus {
+    ABSENCE = 0; //缺勤
+    PRESENT = 1; //出勤
+    LEAVE = 2; //请假
+}
+
+//BaseObject
+//用户，包括老师，小孩 ，家长
+message User {
+    required int64 userId = 1;
+    optional string userName = 2;
+    optional string nickname = 3;
+    optional string avatar = 4;
+    optional int64 childUserId = 5; //家长对应的小孩ID，处理家长小孩关系的时候使用
+    optional string mobile = 6; //绑定的手机号
+    optional string sign = 7; //签名
+    optional UserType userType = 8; //用户类型
+    optional ActionType actionType = 9; //操作类型
+    optional string firstLetter = 10; //首字母
+    optional SexType sexType = 11; //性别
+    optional int64 birthday = 12; //生日
+    optional string address = 13; //地址
+    optional string realname = 14; //真实姓名
+    optional string gardenName = 15; //幼儿园名称
+    optional string className = 16; //班级名称
+    optional ParentType ParentType = 17; //家长类型
+    optional int64 gardenId = 18; //园id
+    optional int64 classId = 19; //班级id
+    optional int64 positionId = 20; //职位id
+    optional string positionName = 21; //职位名字
+    optional string guarder = 22; //监护人
+    optional bool activated = 23; //已经激活
+    optional string customName = 24; //自定义名
+    repeated Child childs = 25; //家长下多个小孩（支持1个家长多个小孩的需求）
+    optional string combinedNickname = 26;//组合昵称
+}
+
+message Child {
+    required int64 userId = 1; //小孩id
+    optional ParentType ParentType = 2; //家长类型
+    optional bool isMaster = 3 [default = false];
+}
+
+
+//部门，包括园，班级
+message Department {
+    required int64 id = 1;
+    required string name = 2;
+    required int64 parentId = 3; //父ID
+    optional string groupId = 4;
+    required DepartmentType type = 5; //部门类型
+    required ActionType actionType = 6; //add OR update,delete
+    optional string classPhoto = 7; //班级头像
+    optional bool showParent = 8; //是否显示家长
+}
+
+message Notice {
+    required int64 id = 1;
+    required string content = 2;
+    repeated Attach attaches = 3;
+    required int64 sendUserId = 4;
+    required int64 sendTime = 5;
+    optional bool isRead = 6;
+    optional string senderName = 7;
+    optional string senderAvatar = 8;
+}
+
+message Attach {
+    required string fileurl = 1;
+    required AttachType attachType = 2;
+}
+
+message NoticeDepartment {
+    optional int64 id = 1;
+    optional int64 noticeId = 2;
+    required int64 departmentId = 3;
+    optional int32 memberCount = 4;
+    optional int32 readedCount = 5;
+    repeated int64 memberUserIds = 6;
+    optional bool all = 7;
+}
+
+message NoticeMember {
+    optional int64 id = 1;
+    required int64 userId = 2;
+    optional string nickname = 3;
+    optional bool isRead = 4;
+    optional string avatar = 5;
+}
+
+message UserCard {
+    required int64 id = 1;
+    required int64 userId = 2; //小孩或老师ID
+    optional int64 parentUserId = 3; //家长ID, 老师不需要设置
+    required string cardCode = 4; //卡号
+    optional string userName = 5; //小孩或老师的姓名
+    optional string parentName = 6; //家长的nickname,  老师不需要设置
+    optional ActionType actionType = 7; //add OR update,delete
+    optional UserType usertype = 8;
+    optional string positionName = 9;
+    optional string departmentName = 10;
+    optional string userNameUnison = 11; //小孩同音字姓名
+}
+
+message Checkin {
+    optional int64 id = 1;
+    required string cardCode = 2;
+    required Attach attach = 3;
+    optional int64 userId = 4;
+    required int64 checkinTime = 5;
+
+    optional int64 gardenId = 6;
+    optional string userName = 7;
+    optional string parentName = 8;
+    optional string className = 9;
+}
+
+//登录
+//URL:/login
+message LoginRequest {
+    required string username = 1; //可以是用户名或手机号
+    required string password = 2; //密码
+}
+
+message LoginResponse {
+    required bool isInit = 1; //使用帐号登录时，表示有没有初始化（绑定身份和手机号）
+    required string token = 2;
+    required User user = 3;
+    repeated UserProfile userProfiles = 4; //用户配置
+}
+
+//获取增量联系人
+//URL:/fetch_contacts
+message FetchContactsRequest {
+    required int64 lastModifiedSince = 1;
+}
+
+message FetchContactsResponse {
+    repeated Department departments = 1;
+    required int64 fetchTime = 2;
+}
+
+//获取Department里的成员
+//URL:/fetch_department_members
+message FetchDepartmentMembersRequest {
+    required int64 departmentId = 1;
+    required int64 lastFetchTime = 2;
+}
+
+message FetchDepartmentMembersResponse {
+    repeated User members = 1; //群成员，包含家长和老师,幼儿，家长和幼儿的关系通过User对象中的childId解决
+    required int64 lastFetchTime = 4;
+    required bool hasMore = 5;
+}
+
+//需要考虑个人信息有更新怎么办
+//URL:/fetch_userinfo
+message FetchUserinfoRequest {
+    required int64 uid = 1;
+}
+
+message FetchUserinfoResponse {
+    required User user = 1;
+}
+
+//获取部门信息，比如班级
+//URL:/fetch_departmentinfo
+message FetchDepartmentinfoRequest {
+    required int64 departmentId = 1;
+}
+
+message FetchDepartmentinfoResponse {
+    required Department department = 1;
+}
+
+//通过groupId获取部门信息
+//URL:/fetch_department_by_groupId
+message FetchDepartmentByGroupIdRequest {
+    required string groupId = 1;
+}
+
+message FetchDepartmentByGroupIdResponse {
+    required Department department = 1;
+}
+
+//发送通知
+//URL:/send_notice
+message SendNoticeRequest {
+    required string content = 1;
+    repeated Attach attches = 2;
+    repeated NoticeDepartment noticeDepartments = 3;
+}
+
+message SendNoticeResponse {
+    required int64 noticeId = 1;
+    optional int32 bonus = 2;
+}
+
+
+//获取通知列表
+//URL:/fetch_notice
+message FetchNoticeRequest {
+    optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+    required bool isInbox = 3;
+}
+
+message FetchNoticeResponse {
+    repeated Notice notices = 1;
+    required bool hasMore = 2;
+}
+
+//URL:/fetch_notice_departments
+message FetchNoticeDepartmentsRequest {
+    required int64 noticeId = 1;
+}
+
+message FetchNoticeDepartmentsResponse {
+    repeated NoticeDepartment noticeDepartments = 1;
+}
+
+//获取通知成员
+//URL:/fetch_notice_members
+message FetchNoticeMembersRequest {
+    required int64 noticeId = 1;
+    required int64 departmentId = 2;
+}
+
+message FetchNoticeMembersResponse {
+    repeated NoticeMember noticeMembers = 1;
+}
+
+//用户读取通知
+//URL:/read_notice
+message ReadNoticeRequest {
+    required int64 noticeId = 1;
+}
+
+message ReadNoticeResponse {
+
+}
+
+//获取当前用户未读通知数
+//URL:/get_user_unread_notice_cnt
+message GetUserUnreadNoticeCntRequest {
+}
+
+message GetUserUnreadNoticeCntResponse {
+    required int32 unreadNoticeCnt = 1;
+}
+
+
+//绑定卡
+//URL:/bind_card
+message BindCardRequest {
+    required string cardCode = 1;
+    required int64 userId = 2; //如果是小孩，就是小孩的用户ID，如果是老师，就是老师的ID
+}
+
+message FetchChildBindCardRequest {
+    repeated UserCard userCards = 1;
+}
+
+//挂失卡
+//URL:/report_loss_card
+message ReportLossCardRequest {
+    required string cardCode = 1;
+}
+
+//上报刷卡数据,给刷卡机使用
+//URL:/checkin
+message CheckinRequest {
+    required string machineId = 1;
+    repeated Checkin checkin = 2;
+}
+
+message CheckinResponse {
+
+}
+
+//注册刷卡机
+//URL:/register_checkin_machine
+message RegisterCheckinMachineRequest {
+    optional int64 oaId = 1;
+    optional int64 gardenId = 2;
+    required string machineId = 3;
+    optional string macAddress = 4;
+}
+
+message RegisterCheckinMachineResponse {
+    required int64 gardenId = 1;
+    required string gardenName = 2;
+}
+
+//验证刷卡机
+//URL:/check_permission
+message CheckPermissionRequest {
+    required string password = 1;
+    optional int64 gardenId = 2;
+}
+
+message CheckPermissionResponse {
+}
+
+
+//同步卡号列表
+//URL:/fetch_card
+message FetchCardRequest {
+    required int64 gardenId = 1; //园ID
+    required int64 lastModifiedSince = 2; //同步时间
+}
+
+message FetchCardResponse {
+    repeated UserCard card = 1; //卡号列表
+    required int64 fetchTime = 2; //同步时间
+    required bool hasMore = 3;
+}
+
+
+//同步老刷卡机卡号列表
+//URL:/fetch_old_machine_card
+message FetchOldMachineCardRequest {
+    required int64 gardenId = 1; //园ID
+    required int64 syncVersion = 2; //同步version
+}
+
+message FetchOldMachineCardResponse {
+    repeated UserCard card = 1; //卡号列表
+    optional int64 syncVersion = 2; //同步version
+}
+
+//URL:/fetch_voice
+message FetchVoiceRequest {
+    required int64 gardenId = 1;
+}
+
+message FetchVoiceResponse {
+    required int32 voiceClass = 1;
+    optional string voicePrefix = 2;
+    optional string voiceSuffix = 3;
+}
+
+message FetchCheckinRequest {
+    optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+}
+
+message FetchCheckinResponse {
+    repeated Checkin checkins = 1;
+    required bool hasMore = 2;
+
+    required int64 lastFetchTime = 3;
+}
+
+
+message GetUploadinfoRequest {
+}
+
+message GetUploadinfoResponse {
+    required string token = 1;
+}
+
+//URL:/get_checkin_upload_token
+message GetCheckinUploadTokenRequest {
+}
+
+message GetCheckinUploadTokenResponse {
+    required string token = 1;
+}
+
+message BindCardInfo {
+    optional string cardCode = 1;
+    optional string nickName = 2;
+    optional ParentType parentType = 3; //家长类型
+    optional string avatar = 4;
+    optional int64 parentId = 5;
+
+}
+
+message FetchUserCardResponse {
+    repeated BindCardInfo biandCardInfo = 1;
+}
+
+message FeedMedicineTask {
+    required int64 id = 1;
+    required int64 beginDate = 2; //开始日期
+    required string desc = 3; //喂药描述
+    repeated Attach attaches = 4; //
+    required int64 parentUserId = 5;
+    optional string parentName = 6; //nickname
+    optional string parentAvatarUrl = 7;
+    optional int64 classId = 8; //班级id
+    optional string className = 9;
+    optional string classAvatarUrl = 10;
+    optional int64 createdOn = 11;
+    optional int32 status = 12;
+    optional int64 updateOn = 13;
+    optional bool hasRead = 14;
+}
+
+//喂药
+//url:/fetch_feed_medicine_task
+message FetchFeedMedicineTaskRequest {
+    optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+}
+
+message FetchFeedMedicineTaskResponse {
+    repeated FeedMedicineTask feedMedicineTask = 1;
+    required bool hasMore = 2;
+}
+
+
+
+message ReadFeedMedicineTaskRequest {
+    required int64 feedMedicineTaskId = 1;
+}
+
+
+message SendFeedMedicineTaskRequest {
+    required int64 beginDate = 1; //开始日期
+    required string desc = 2; //喂药描述
+    repeated Attach attaches = 3; //图片
+}
+//url:/send_feed_medicine_task
+message SendFeedMedicineTaskResponse {
+    required int64 feedMedicineTaskId = 1;
+
+}
+
+//园长信箱
+message GardenMail {
+    required int64 id = 1;
+    required int64 gardenId = 2;
+    optional string gardenName = 3;
+    optional string gardenAvatarUrl = 4;
+    required string content = 5;
+    required int64 createdOn = 6;
+    required bool anonymous = 7;
+    required int64 fromUserId = 8;
+    optional string fromUsername = 9;
+    optional string fromUserAvatarUrl = 10;
+    optional int32 status = 11;
+    optional int64 updateOn = 12;
+    optional bool hasRead = 13;
+}
+//url:/fetch_garden_mail
+message FetchGardenMailRequest {
+    optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+
+}
+
+message FetchGardenMailResponse {
+    repeated GardenMail gardenMail = 1;
+    required bool hasMore = 2;
+}
+
+
+//url:/send_garden_mail
+message SendGardenMailRequest {
+    required string content = 1;
+    required bool anonymous = 2;
+}
+
+message SendGardenMailResponse {
+    required int64 id = 1;
+}
+
+
+
+
+
+
+
+
+//发送短信
+//URL:/send_sms_code
+message SendSmsCodeRequest {
+    required string mobile = 1;
+    required SendSmsCodeType sendSmsCodeType = 2;
+    optional bool isVoice = 3 [default = false];
+}
+
+message SendSmsCodeResponse {
+}
+
+//根据手机号激活用户
+//URL:/active_user
+message ActiveUserRequest {
+    required string mobile = 1;
+    required string code = 2;
+    required string password = 3;
+}
+
+message ActiveUserResponse {
+    required string token = 1;
+    required User user = 2;
+    repeated UserProfile userProfiles = 3; //用户配置
+}
+
+
+//获取当前用户的小孩
+//首选绑定,没有绑定查预留手机号
+//URL:/fetch_child
+message FetchChildRequest {
+}
+
+message FetchChildResponse {
+    required User children = 1;
+}
+
+
+//绑定小孩
+//URL:/bind_child
+message BindChildRequest {
+    required ParentType parentType = 1; //家长类型
+    required int64 childUserId = 2;
+    required int64 birthday = 3;
+    required string guarder = 4;
+}
+
+message BindChildResponse {
+    required User parent = 1;
+    required User child = 2;
+}
+
+
+//忘记密码
+//URL:/set_password
+message SetPasswordRequest {
+    required string code = 1;
+    required string password = 2;
+    required string mobile = 3;
+}
+
+message SetPasswordResponse {
+}
+
+//修改密码
+//URL:/update_password
+message UpdatePasswordRequest {
+    required string oldPassword = 1;
+    required string newPassword = 2;
+}
+
+message UpdatePasswordResponse {
+}
+
+//显示个人的基本资料 老师端、家终端 fetch_userinfo
+//通过当前用户userId获取自己资料,通过t21ChildUserId获取小孩资料
+
+
+
+//绑定家长信息
+message BindingParentInfo {
+    required User user = 1;
+    required ParentType parentType = 2;
+    required bool isMaster = 3;
+}
+
+//获取已经绑定的parent的列表
+//URL:/get_binding_parent_list
+message GetBindingParentListRequest {
+}
+
+message GetBindingParentListResponse {
+    repeated BindingParentInfo bindParents = 1;
+}
+
+//修改绑定关系(*)
+//URL:/update_bind
+message UpdateBindRequest {
+    required int64 parentId = 1;
+    required ParentType parentType = 2;
+}
+
+message UpdateBindResponse {
+    required User user = 1;
+}
+
+
+
+//修改userInfo
+//URL:/update_user_info
+message UpdateUserInfoRequest {
+    required User user = 1;
+}
+
+message UpdateUserInfoResponse {
+}
+
+//邀请发送验证码 已有
+
+//邀请验证,同时绑定被邀请人和小孩关系
+//URL:/active_invite_user
+message ActiveInviteUserRequest {
+    required string mobile = 1;
+    required string code = 2;
+    required ParentType parentType = 3; //家长类型
+    required string password = 4;
+}
+
+message ActiveInviteUserResponse {
+    required User user = 1;
+}
+
+
+//解除绑定
+//URL:/relieve_bind
+message RelieveBindRequest {
+    required int64 parentId = 1;
+}
+
+message RelieveBindResponse {
+}
+
+
+//更换手机号
+//URL:/update_mobile
+message UpdateMobileRequest {
+    required string mobile = 3;
+    required string code = 4;
+}
+
+message UpdateMobileResponse {
+}
+
+
+//诊断?
+
+
+//现在选项有： exempt_disturb、open_sound、open_vibration、exempt_disturb_+departmentId
+//用户设置的选项和值
+message UserProfile {
+    required string option = 1;
+    required string value = 2;
+}
+//保存用户设置
+//URL:/save_user_profile
+message SaveUserProfileRequest {
+    repeated UserProfile userProfiles = 1;
+}
+
+message SaveUserProfileResponse {
+}
+
+//URL:/fetch_user_profile
+message FetchUserProfileRequest {
+}
+
+message FetchUserProfileResponse {
+    repeated UserProfile userProfiles = 1;
+}
+
+//退出登錄
+//URL:/logout
+message LogOutRequest {
+}
+
+message LogOutResponse {
+}
+
+
+message Like {
+    required int64 userId = 1;
+    optional string nickName = 2;
+    optional string userAvatarUrl = 3;
+    required int64 targetId = 4;
+    required int64 commentId = 5;
+}
+
+message Feed {
+    required int64 id = 1;
+    optional string content = 2;
+    required int64 createOn = 3;
+    repeated Attach attaches = 4;
+    repeated Like likes = 5;
+    repeated Comment comments = 6;
+    required int64 userId = 7;
+    required string userNickName = 8;
+    required string userAvatarUrl = 9;
+
+    optional bool hasMoreComment = 10;
+    optional UserType userType = 11; //2015-09-10 add by phz feed发布者的userType，客户端用来根据这个判断是否可以删除该feed，老师可以删除家长的评论
+}
+//发布亲子圈
+//attach 兼容通知可以设定类型,目前都图片可后期扩展
+//URL:/send_feed
+message SendFeedRequest {
+    repeated int64 departmentIds = 2;
+    optional string content = 3;
+    repeated Attach attaches = 4;
+    optional bool syncDepartmentPhoto = 5;
+}
+
+message SendFeedResponse {
+    required int64 feedId = 1;
+    optional int32 bonus = 2;
+}
+
+message Activity {
+    required int64 id = 1;
+    required string title = 2;
+    repeated string picUrl = 3;
+    required string avatarUrl = 4;
+    required string nickname = 5;
+    required int64 createOn = 6;
+    required string url = 7;
+}
+
+//获取亲子圈
+//URL:/fetch_feed
+message FetchFeedRequest {
+    optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+    required bool isInbox = 3;
+    optional int64 departmentId = 4; //不传取所有班的
+}
+
+message FetchFeedResponse {
+    repeated Feed feeds = 1;
+    required bool hasMore = 2;
+    required int64 lastFetchTime = 3;
+    optional Activity activity = 4;
+}
+
+//获取其他用户亲子圈
+//URL:/fetch_user_feed
+message FetchUserFeedRequest {
+    optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+    required int64 userId = 3;
+}
+
+message FetchUserFeedResponse {
+    repeated Feed feeds = 1;
+    required bool hasMore = 2;
+}
+
+
+//删除自己的亲子圈
+//URL:/delete_feed
+message DeleteFeedRequest {
+    required int64 feedId = 1;
+}
+
+message DeleteFeedResponse {
+}
+
+//修改设备token
+//URL:/update_device_token
+message UpdateDeviceTokenRequest {
+    required string deviceToken = 1;
+    required PlatformType platformType = 2; //平台
+    required string osVersion = 3; //操作系统版本
+    required string mobileVersion = 4; //手机型号
+    required string deviceId = 5; //设备id
+}
+
+message UpdateDeviceTokenResponse {
+}
+
+
+message Counter {
+    required string item = 1;
+    required int32 count = 2;
+}
+
+//获取计数
+//URL:/fetch_counter
+message FetchCounterRequest {
+}
+
+message FetchCounterResponse {
+    repeated Counter counters = 1;
+}
+
+enum CommentType {
+    LIKE = 1;
+    REPLY = 2;
+}
+
+enum TargetType {
+    FEED = 1; //
+    GARDEN_MAIL = 2; //园长信箱
+    FEED_MEDICIN_TASK = 3; //喂药
+    ANSWER = 4;      //回答
+    KNOWLEDGE = 5;   //宝典
+}
+
+
+message Comment {
+    required int64 id = 1;
+    optional string content = 2; //评论内容
+    required CommentType commentType = 3; //评论类型 赞、回复
+    required int64 targetId = 4; //feedId gardenmailId feedMedicineTaskId
+    required int64 targetUserId = 5; //
+    required TargetType targetType = 6; //feed gardenMail feedMedicineTaskId
+    optional int64 toUserId = 7; //回复谁
+    optional string toUserNickName = 8;
+    required int64 createOn = 9;
+    required int64 userId = 10; //回复人id
+    optional string userNickName = 11; //回复人名称
+    optional string userAvatarUrl = 12;
+    optional UserType userType = 13;
+    optional string userTitle = 14;
+}
+//增加一条评论
+//url:/send_comment
+message SendCommentRequest {
+    required string content = 1;
+    required CommentType commentType = 2; //评论类型 赞、回复
+    optional int64 toUserId = 3; //回复谁
+    required int64 targetId = 4;
+    required TargetType targetType = 5; //feed gardenMail feedMedicineTaskId
+}
+
+message SendCommentResponse {
+    required int64 commentId = 1;
+    optional int32 bonus = 2;
+}
+
+
+//删除评论
+//url:/delete_comment
+message DeleteCommnetsRequest {
+    required int64 commentId = 1;
+}
+
+//获取某条主题的评论
+//url:/show_comments
+message ShowCommentRequest {
+    required int64 targetId = 1;
+    required TargetType targetType = 2;
+    optional int64 maxId = 3;
+    optional int64 sinceId = 4;
+}
+
+message ShowCommentResponse {
+    repeated Comment comment = 1;
+    required bool hasMore = 2;
+}
+
+//获取与我相关的评论列表
+//url:/fetch_concerned_comment
+message FetchConcernedCommentRequest {
+    optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+}
+
+message FeedComment {
+    required Feed feed = 1;
+    required Comment comment = 2;
+}
+
+message FetchConcernedCommentResponse {
+    repeated FeedComment feedComment = 1;
+    required bool hasMore = 2;
+}
+
+//删除我相关的所有评论
+//url:/delete_concerned_comment
+message DeleteConcernedCommentRequest {
+}
+
+message DeleteConcernedCommentResponse {
+}
+
+// 公告 活动  微学园 园介绍 食谱
+enum PostType {
+    ACTIVITY = 1; // 活动
+    ANNOUNCEMENT = 2; //公告
+    LERNGARDEN = 3; //微学园
+    INTRO = 4; // 园介绍
+    RECIPES = 5; //食谱
+    AGREEMENT = 6; //服务协议
+    SYLLABUS = 50; //班级周计划
+}
+
+message Post {
+    required int64 id = 1; //主键
+    optional string title = 2; //标题
+    optional string summary = 3; //摘要
+    optional string content = 4; //内容，园介绍及食谱需要有内容
+    optional string coverImageUrl = 5; //标题图片
+    optional int64 createdOn = 6; //创建时间
+    optional PostType postType = 7; //公告 活动  园介绍 食谱
+    optional int64 orderValue = 8; //排序值
+    optional string postUrl = 9; //文章详细页地址
+}
+
+//url:/fetch_post
+message FetchPostRequest {
+    required int64 gardenId = 1;
+    optional int64 maxId = 2;
+    optional int64 sinceId = 3;
+    required PostType postType = 4;
+}
+
+message FetchPostResponse {
+    repeated Post post = 1;
+    required bool hasMore = 2;
+
+    optional int64 lastFetchTime = 3;
+}
+
+//url:/fetch_post_detail
+message FetchPostDetailRequest {
+    optional int64 postId = 1;
+    optional PostType postType = 2;
+}
+
+message FetchPostDetailResponse {
+    optional Post post = 1; //文章对象
+    optional string postHtml = 2; //文章详细页字符串
+    optional string postUrl = 3; //文章详细页地址
+}
+
+//园介绍请求
+//url:/fetch_garden_intro
+message FetchGardenIntroRequest {
+
+}
+//园介绍响应
+message FetchGardenIntroResponse {
+    optional Post post = 1; //文章对象
+    optional string postHtml = 2; //文章详细页字符串
+    optional string postUrl = 3; //文章详细页地址
+}
+
+//服务协议请求
+//url:/fetch_agreement
+message FetchAgreementRequest {
+}
+//服务协议响应
+message FetchAgreementResponse {
+    optional Post post = 1; //文章对象
+    optional string postHtml = 2; //文章详细页字符串
+    optional string postUrl = 3; //文章详细页地址
+}
+
+//微学园
+message PostGroup {
+    optional int64 id = 1;
+    repeated Post post = 2;
+}
+//微学园列表
+//url:/fetch_postgroup
+message FetchPostGroupRequest {
+    optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+    optional int64 gardenId = 3;
+}
+
+message FetchPostGroupResponse {
+    repeated PostGroup postGroup = 1;
+    required bool hasMore = 2;
+
+    required int64 lastFetchTime = 3;
+}
+
+//禁言类型
+enum MuteType {
+    MUTE_CHAT = 1; //聊天
+    MUTE_FEED = 2; //亲子圈
+}
+
+//禁言
+//url:/mute
+message MuteRequest {
+    required int64 departmentId = 1; //班级ID
+    repeated int64 childUserIds = 2; //宝宝的ID列表
+    optional MuteType type = 3; //禁言的类型 聊天/亲子圈
+    optional bool cover = 4; //是否清空所有的禁言 涉及到不同平台，不同的版本，这里需要做兼容处理
+}
+
+
+
+message MuteResponse {
+
+}
+
+//解禁
+//url:/unmute
+message UnMuteRequest {
+    required int64 departmentId = 1; //班级ID
+    required int64 childUserIds = 2; //宝宝的ID
+    optional MuteType type = 3; //禁言的类型 聊天/亲子圈
+}
+
+message UnMuteResponse {
+
+}
+
+//获取指定班级下所有禁言的宝宝的ID列表
+//url : /fetch_mute
+message FetchMuteRequest {
+    required int64 departmentId = 1; //班级ID
+    optional MuteType type = 2; //禁言的类型 聊天/亲子圈
+}
+
+message FetchMuteResponse {
+    repeated int64 childUserIds = 1; //返回指定班级下所有被禁言的宝宝ID列表
+}
+
+
+//读园长信箱，标记为已读
+//url:/read_garden_mail
+message ReadGardenMailRequest {
+    required int64 id = 1;
+}
+
+message ReadGardenMailResponse {
+}
+
+//读取喂药，标记为已读
+//url:/read_feed_medicine
+message ReadFeedMedicineRequest {
+    required int64 id = 1;
+}
+
+message ReadFeedMedicineResponse {
+}
+
+
+//收集日志
+//url:/collect_log
+message CollectLogRequest {
+    required string content = 1;
+}
+
+message CollectLogResponse {
+}
+
+//刷卡机日志
+//url:/machine_log
+message MachineLogRequest {
+    required int64 gardenId = 1;
+    required string content = 2;
+}
+
+message MachineLogResponse {
+}
+
+
+//升级信息
+message Upgrade {
+    optional bool showAtMain = 1; //是否显示在首屏
+    optional bool mustUpdate = 2; //是否强制升级
+    required bool isUpdate = 3; //是否升级
+    optional string updateMsg = 4; //升级标题
+    optional string showMsg = 5; //升级内容
+    optional string versionCode = 6; //最新版本号
+    optional string updateUrl = 7; //下载地址
+}
+//app升级请求
+//url:/upgrade
+message UpgradeRequest {
+    required PlatformType platformType = 1; //平台
+}
+//刷卡机升级请求
+//url:/card_machine_upgrade
+message MachineUpgradeRequest {
+    required string version = 1; //版本
+    optional string deviceId = 2; //设备id
+}
+//升级响应
+message UpgradeResponse {
+    optional Upgrade upgrade = 1; //升级信息
+}
+
+//url:/scan_code_checkin
+message ScanCodeCheckinRequest {
+    optional string cardCode = 1;
+    optional int64 userId = 2;
+    required int64 checkinTime = 3;
+}
+
+message ScanCodeCheckinResponse {
+}
+
+//获取园名字， 1.0老机器需要的， 每次开机都要调接口获取园名字
+//url:/get_garden_name
+message GetGardenNameRequest {
+    required int64 gardenId = 1;
+}
+
+message GetGardenNameResponse {
+    required string gardenName = 2;
+}
+
+//清空刷卡
+//clear_check_in
+message ClearCheckInRequest {
+    required int64 maxId = 1;
+}
+
+//清空通知
+//clear_notice
+message ClearNoticeRequest {
+    required int64 maxId = 1;
+    required bool isInbox = 2;
+}
+
+
+// 2015-09-21 add by phz 班级相册 start
+//获取班级相册  gateway请求:/fetch_department_photo
+message FetchDepartmentPhotoRequest {
+    required int64 departmentId = 1;
+    optional int64 maxId = 2;
+    optional int64 sinceId = 3;
+}
+
+message DepartmentPhoto {
+    required int64 id = 1;
+    required string fileKey = 2;
+    required int64 createOn = 3;
+}
+
+message FetchDepartmentPhotoResponse {
+    repeated DepartmentPhoto photos = 1;
+    required bool hasMore = 2;
+    optional int64 totalCnt = 3;
+    //    required int64 lastFetchTime = 3;
+
+}
+// 2015-09-21 add by phz 班级相册 end
+
+
+//uri:user_check_in 用户每日签到
+message UserCheckInRequest {
+
+}
+
+message UserCheckInResponse {
+    optional int32 bonus = 1;
+}
+
+
+//fetch_attendance
+message FetchAttendanceRequest {
+    optional int64 maxId = 1;
+    optional int64 sinceId = 2;
+}
+
+message FetchAttendanceResponse {
+    repeated Checkin checkins = 1;
+    required bool hasMore = 2;
+}
+
+
+//考勤
+//url: /class_attendance
+message ClassAttendanceRequest {
+    required int64 classId = 1; //班级ID
+    required int64 date = 2; //日期,格式yyyyMMdd
+}
+
+
+message ClassAttendanceResponse {
+    repeated User present = 1; //出席
+    repeated User absence = 2; //缺席
+    repeated User leave = 3; //请假
+    optional bool isRestDay = 4;//是否是节假日
+}
+
+//url: /child_attendance
+
+message ChildAttendanceRequest {
+    required int64 month = 1; //日期,格式yyyyMM
+}
+
+
+message ChildAttendanceResponse {
+    repeated int64 present = 1; //本月出席的日期
+    repeated int64 absence = 2; //本月缺席的日期
+    repeated int64 leave = 3; //本月请假的日期
+    repeated int64 rest = 4; //本月的假期
+}
+
+//url: /update_attendance
+
+message UpdateAttendanceRequest {
+    repeated int64 present = 1; //补签为出勤的幼儿ID出席
+    repeated int64 absence = 2; //补签为缺席
+    repeated int64 leave = 3; //补签为请假
+    required int64 date = 4; //补签日期 (时间戳)
+}
+
+
+message UpdateAttendanceResponse {
+}
+
+//url: /fetch_leave
+
+enum LeaveStatus {
+    APPLIED = 0;
+    APPROVED = 1;
+}
+
+enum LeaveType {
+    SCK = 2; // 病假
+    UNP = 3; // 事假
+}
+
+message Leave {
+    required int64 id = 1;
+    required int64 applyUserId = 2; // 申请人
+    required string applyUserName = 3; // 申请人名称
+    optional string applyUserAvatar = 4; // 申请人头像
+    required int64 userId = 5; // 请假人
+    optional string userAvatar = 6; // 请假人
+    required string userName = 7; // 请假人
+    optional string reason = 8; // 理由
+    required int64 beginDate = 9; // 开始时间
+    required int64 endDate = 10; // 结束时间
+    required double days = 11; // 天数
+    required LeaveType leaveType = 12; // 请假类型
+    optional int64 replyUserId = 13; // 审批人
+    optional string replyUserName = 14; // 审批人名称
+    optional string reply = 15; // 审批理由
+    required LeaveStatus status = 16; // 审批状态
+    required int64 createdOn = 17; // 创建时间
+    repeated int64 dates = 18; // 详细时间列表
+}
+
+message FetchLeaveRequest {
+    required int64 sinceId = 1;
+    required int64 maxId = 2;
+    optional int64 userId = 3; // 请假人.
+}
+
+message FetchLeaveResponse {
+    repeated Leave leaves = 1;
+    required bool hasMore = 2;
+}
+
+//url: /apply_leave
+
+message ApplyLeaveRequest {
+    optional string reason = 1; // 理由
+    required int64 beginDate = 2; // 开始时间
+    required int64 endDate = 3; // 结束时间
+    required LeaveType leaveType = 4; // 假期类型
+    optional int64 userId = 5; // 请假人
+}
+
+message ApplyLeaveResponse {
+}
+
+//url: /approve_leave
+
+message ApproveLeaveRequest {
+    required int64 leaveId = 1;
+    optional string reply = 2;
+}
+
+message ApproveLeaveResponse {
+}
+
+
+//老师邀请家长激活
+//URL:/teacher_invitation_parent
+message TeacherInvitationParentRequest {
+    required int64 parentId = 1;
+}
+
+message TeacherInvitationParentResponse {
+}
+//获取某一年的休息日
+//url:/fetch_rest_day
+message FetchRestDayRequest {
+    required int64 date = 1; //年 时间戳
+}
+
+message FetchRestDayResponse {
+    repeated int64 restDay = 1; //休息日期的时间戳
+}
+
+import "google/protobuf/objectivec-descriptor.proto";
+option (google.protobuf.objectivec_file_options).class_prefix = "TXPB";

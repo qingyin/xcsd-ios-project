@@ -1,0 +1,24 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '6.0'
+
+source 'https://gitcafe.com/akuandev/Specs.git'
+
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
+def import_common_pods
+  pod 'FMDB', '~> 2.5'
+  pod 'ProtocolBuffers', '~> 1.9.8'
+  pod 'Qiniu', '~> 7.0.11.1'
+  pod 'AFNetworking', '~> 2.5.4'
+  pod 'CocoaLumberjack'
+end
+
+target 'TXChatSDK' do
+  import_common_pods
+end
+
+target 'TXChatSDKTests' do
+  import_common_pods
+end
+

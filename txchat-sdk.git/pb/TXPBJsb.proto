@@ -1,0 +1,379 @@
+//import "google/protobuf/objectivec-descriptor.proto";
+//option (google.protobuf.objectivec_file_options).class_prefix = "TXPB";
+
+
+
+option java_package = "com.tuxing.rpc.proto";
+
+option java_outer_classname = "TxJsbProto";
+
+enum TagType {
+    TAG_QUESTION = 1;
+    TAG_KNOWLEDGE = 2;
+}
+
+// 分类(问题/文章)
+message Tag {
+    required int64 id = 1;
+    required string name = 2; // 名称
+    required int64 parentId = 3;
+    required TagType type = 4;
+}
+
+// 问题
+message Question {
+    required int64 id = 1;
+    required string title = 2; // 标题
+    required string content = 3; // 内容
+    required int64 authorId = 4; // 作者ID
+    required string authorName = 5; // 作者名称
+    optional string authorAvatar = 6; // 作者头像
+    required bool anonymous = 7; // 是否匿名
+    required int64 tagId = 8; // 分类ID
+    optional string tagName = 9; // 分类名称
+    required int32 replyNum = 10; // 回答数
+    required int32 viewNum = 11; // 查看数
+    required int32 followNum = 12; // 关注数
+    required bool hasAnswered = 13; // 是否已关注
+    required bool hasFollowed = 14; // 是否已回答
+    required int64 createOn = 15;
+    required int64 updateOn = 16;
+    repeated Attach attaches = 17; //图片
+}
+
+// 答案
+message QuestionAnswer {
+    required int64 id = 1;
+    required int64 authorId = 2;
+    required string authorName = 3;
+    optional string authorTitle = 4;
+    optional string authorAvatar = 5;
+    required UserType userType = 6;
+    required bool anonymous = 7;
+    required string content = 8;
+    required int64 thankNum = 9;
+    required int64 replyNum = 10;
+    required int64 createOn = 11;
+    required int64 updateOn = 12;
+    optional int64 questionId = 13; // 问题ID
+    optional string questionTitle = 14; // 问题标题
+    repeated Attach attaches = 15; //图片
+    optional bool hasThanked = 16; // 是否已感谢
+}
+
+// 全职/兼职
+enum ExpertType {
+    ALL_TIME = 0;
+    PART_TIME = 1;
+}
+
+// 专家
+message Expert {
+    required int64 id = 1;
+    required string name = 2;
+    optional string title = 3;
+    optional string avatar = 4;
+    optional string description = 5; // 描述
+    repeated Tag specialities = 6; // 擅长方向
+    required ExpertType type = 7; // 全职/兼职
+    required int32 followNum = 8; // 关注数
+    required int32 thankNum = 9; // 感谢数
+    required int32 answerNum = 10; // 回答数
+    required int32 knowledgeNum = 11; // 文章数
+    optional int64 rank = 12; // 推荐度
+    optional string rankBanner = 13; // 推荐标题
+    optional string sign = 14; // 签名
+    optional bool hasFollowed = 15; // 已关注
+}
+
+// 获取分类列表
+// url:/fetch_tags
+message FetchTagsRequest {
+    optional TagType type = 1;
+}
+
+message FetchTagsResponse {
+    repeated Tag tags = 1;
+}
+
+// 获取推荐问题列表
+//url:/fetch_hot_questions
+message FetchHotQuestionsRequest {
+    optional int32 pageNum = 1;
+}
+
+message FetchHotQuestionsResponse {
+    repeated Question questions = 1;
+    required bool hasMore = 2;
+}
+
+// 获取指定分类问题列表
+//url:/fetch_questions
+message FetchQuestionsRequest {
+    optional int64 tagId = 1; // 分类ID
+    optional int64 authorId = 2; // 作者ID
+    optional int64 maxId = 3;
+    optional int64 sinceId = 4;
+}
+
+message FetchQuestionsResponse {
+    repeated Question questions = 1;
+    required bool hasMore = 2;
+}
+
+// 提问
+// url:/ask_question
+message AskQuestionRequest {
+    required int64 tagId = 1; // 分类ID
+    optional int64 expertId = 2; // 专家ID.非指定专家时,不传
+    required string title = 3;
+    required string content = 4;
+    optional bool anonymous = 5;
+    repeated Attach attaches = 6; //图片
+}
+
+message AskQuestionResponse {
+
+}
+
+// 获取问题详情
+// url:/fetch_question_detail
+message FetchQuestionDetailRequest {
+    required int64 questionId = 1;
+}
+
+message FetchQuestionDetailResponse {
+    optional Question question = 1;
+}
+
+// 获取问题答案
+// url:/fetch_question_answers
+message FetchQuestionAnswersRequest {
+    // 根据问题查询答案,当类型为教师且第一页时,同时返回一页专家回答
+    optional int64 questionId = 1; // 问题ID
+    optional UserType userType = 2; // 作者类型,默认教师
+
+    // 根据作者查询答案
+    optional int64 authorId = 3; // 作者ID
+
+    optional int64 maxId = 4;
+    optional int64 sinceId = 5;
+}
+
+message FetchQuestionAnswersResponse {
+    repeated QuestionAnswer answers = 1;
+    required bool hasMore = 2;
+
+    // 以下仅在第一次查询非专家答案时返回
+    repeated QuestionAnswer expertAnswers = 3;
+    optional bool hasMoreExpertAnswer = 4;
+}
+
+// 关注问题
+// url:/follow_question
+message FollowQuestionRequest {
+    required int64 questionId = 1;
+    required bool isFollow = 2; // 关注/取消关注
+}
+
+message FollowQuestionResponse {
+
+}
+
+// 回答问题
+// url:/answer_question
+message AnswerQuestionRequest {
+    required int64 questionId = 1;
+    required string content = 2;
+    optional bool anonymous = 3;
+    repeated Attach attaches = 4; //图片
+}
+
+message AnswerQuestionResponse {
+
+}
+
+// 删除自己的答案
+// url:/delete_question_answer
+message DeleteQuestionAnswerRequest {
+    required int64 questionAnswerId = 1;
+}
+
+message DeleteQuestionAnswerResponse {
+
+}
+
+// 获取专家列表
+// url:/fetch_experts
+message FetchExpertsRequest {
+    optional int32 pageNum = 1;
+}
+
+message FetchExpertsResponse {
+    repeated Expert experts = 1;
+    required bool hasMore = 2;
+}
+
+// 获取专家列表
+// url:/fetch_recommend_experts
+message FetchRecommendExpertsRequest {
+
+}
+
+message FetchRecommendExpertsResponse {
+    repeated Expert experts = 1;
+}
+
+// 获取专家
+// url:/fetch_expert
+message FetchExpertRequest {
+    required int64 id = 1;
+}
+
+message FetchExpertResponse {
+    optional Expert expert = 1;
+    repeated QuestionAnswer answers = 2;
+    optional bool hasMoreAnswer = 3;
+    repeated Knowledge knowledges = 4;
+    optional bool hasMoreKnowledges = 5;
+}
+
+// 关注专家
+// url:/follow_expert
+message FollowExpertRequest {
+    required int64 expertId = 1;
+    required bool isFollow = 2; // 关注/取消关注
+}
+
+message FollowExpertResponse {
+
+}
+
+enum KnowledegeContentType {
+    K_PLAIN = 0;
+    K_PIC = 1;
+    K_VIDEO = 2;
+    K_ALL = 3;
+}
+
+// 宝典文章
+message Knowledge {
+    required int64 id = 1;
+    required string title = 2;
+    required int64 authorId = 3;
+    required string authorName = 4;
+    optional string authorTitle = 5;
+    optional string authorAvatar = 6;
+    required int64 favoriteNum = 7;
+    required int64 likedNum = 8; // 赞
+    required int64 replyNum = 9; // 评论
+    optional bool hasFavorite = 10; // 收藏
+    required int64 createOn = 11;
+    required int64 updateOn = 12;
+    repeated Tag tags = 13; // 分类
+    optional bool hasLiked = 14; // 点赞
+    required string description = 15; // 简介
+    required string content = 16; // 内容,暂时只返回空
+    required string contentUrl = 17; // 内容h5_url
+    required string coverPicUrl = 18; // 图片地址
+    required KnowledegeContentType contentType = 19; // 内容类型
+}
+
+// 获取推荐文章列表
+//url:/fetch_hot_knowledges
+message FetchHotKnowledgesRequest {
+    optional int32 pageNum = 1;
+}
+
+message FetchHotKnowlegdesResponse {
+    repeated Knowledge knowledges = 1;
+    required bool hasMore = 2;
+}
+
+// 获取指定分类文章列表
+//url:/fetch_knowledges
+message FetchKnowledgesRequest {
+    optional int64 tagId = 1; // 分类ID
+    optional int64 authorId = 2; // 作者ID
+    optional int64 maxId = 3;
+    optional int64 sinceId = 4;
+}
+
+message FetchKnowledgesResponse {
+    repeated Knowledge knowledges = 1;
+    required bool hasMore = 2;
+}
+
+// 获取文章详情
+// url:/fetch_knowledge_detail
+message FetchKnowledgeDetailRequest {
+    required int64 knowledgeId = 1;
+}
+
+message FetchKnowledgeDetailResponse {
+    optional Knowledge knowledge = 1;
+}
+
+// 收藏文章
+// url:/favorite_knowledge
+message FavoriteKnowledgeRequest {
+    required int64 knowledgeId = 1;
+    required bool isFavorite = 2; // 收藏/取消收藏
+}
+
+message FavoriteKnowledgeResponse {
+
+}
+
+// 消息对象类型
+enum CommunionObjType {
+    T_QUESTION = 1; // 问题
+    T_KNOWLEDGE = 2; // 宝典
+    T_EXPERT = 3; // 专家
+    T_ANSWER = 4; // 答案
+}
+
+// 消息动作
+enum CommunionAction {
+    A_ANSWER = 1; // 回答
+    A_THANK = 2; // 感谢
+    A_FAVORITE = 3; // 收藏
+    A_FOLLOW = 4; // 关注
+    A_REPLY = 5; // 评论
+}
+
+// 消息
+message CommunionMessage {
+    required int64 id = 1;
+    required int64 toUserId = 2; // 接收着
+    required int64 objId = 3; // 对象ID
+    required CommunionObjType objType = 4; // 对象类型
+    required CommunionAction action = 5; // 操作
+    required int64 optUserId = 6; // 行为人
+    required UserType optUserType = 7;
+    required string optUserName = 8;
+    optional string optUserTitle = 9;
+    optional string title = 10; // 标题(问题/文章)
+    optional string content = 11; // 内容(答案/评论内容)
+    required int64 createOn = 12; // 时间
+    optional int64 refId = 13; // 操作关联Id, 例如回答问题时,关联的是答案ID
+    optional string optUserAvater = 14; // 操作者头像
+    optional Question refQuestion = 15; // 涉及的问题
+    optional QuestionAnswer refAnswer = 16; // 涉及的答案
+}
+
+// 获取教师帮消息
+// url:/fetch_communion_message
+message FetchCommunionMessageRequest {
+    required int64 maxId = 1;
+    optional int64 sinceId = 2;
+    optional int64 sinceTime = 3;
+}
+
+message FetchCommunionMessageResponse {
+    repeated CommunionMessage msgs = 1;
+    required bool hasMore = 2;
+}
+import "google/protobuf/objectivec-descriptor.proto";
+option (google.protobuf.objectivec_file_options).class_prefix = "TXPB";
+import "TXPBChat.proto";

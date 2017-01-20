@@ -1,0 +1,85 @@
+package com.xcsd.edu.parent.message;
+
+import "XCSDHomework.proto";
+option java_package = "com.xcsd.rpc.proto";
+option java_outer_classname = "LearningAbilityProto";
+
+//各项学习能力 按优先级从高到低
+enum Ability {
+	Attention = 1;			//注意力
+	Memory = 2;				//记忆力
+	Reaction = 3;			//反应力
+	Reasoning = 4;			//逻辑力
+	SpatialThinking = 5;	//空间思维
+}
+
+//能力值
+message AbilityValue {
+	required Ability ability = 1;
+	required int32 value = 2;
+}
+
+//班级学习能力排行榜
+//URL:/learning_ability/ranking
+message ClassAbilityRankingRequest {
+	required int64 classId = 1;
+}
+
+message ClassAbilityRankingResponse {
+	repeated UserRank rankList = 1;	//UserRank <= import Homework.proto
+}
+
+
+//原生新接口 用户学习能力统计
+//URL:/learning_ability
+message AbilityStatRequest {
+	required int64 childUserId = 1;
+}
+
+message AbilityDetail {
+	required Ability ability = 1;	
+	required int32 level = 2;			//能力等级
+	optional int32 avgLevel = 3;		//用户平均能力等级
+	optional double percentage = 4; 	//能力超过百分比
+	optional int32 score = 5;			//游戏学能得分
+	optional int32 maxScore = 6;		//游戏学能满分
+	repeated int32 gradeAvgLevel = 7;	//各年级评价能力等级
+}
+
+message AbilityStatResponse {
+	repeated AbilityDetail details = 1;			//学习能力详情
+	required int32 totalAbilityLevel = 2;		//学能等级总和
+	required double totalAbilityPercentage = 3;	//学能等级总和超过百分比
+	required int32 abilityQuotient = 4;			//学能商数
+	required int32 maxAbilityQuotient = 5;		//学能商数满分
+	message Point {
+		required int32 number = 1;
+		required int32 score = 2;
+	}
+	repeated Point abilityChart = 6;			//学能商数图表
+}
+
+//原生新接口 学习能力对应的游戏统计
+//URL:/learning_ability/game_stat
+message AbilityScoreRequest {
+	required int64 userId = 1;
+	required Ability ability = 2;
+}
+
+message AbilityScoreResponse {
+	required int32 totalScore = 1;
+	message GameScore {
+		required int32 gameId = 1;
+		optional string gameName = 2;
+		optional int32 score = 3;
+		optional int32 bestLevel = 4;
+		optional double percentage = 5;
+		optional string color = 6;
+		optional int32 classRank = 7;
+	}
+	repeated GameScore gameList = 2;
+}
+
+
+import "google/protobuf/objectivec-descriptor.proto";
+option (google.protobuf.objectivec_file_options).class_prefix = "XCSDPB";
