@@ -1,0 +1,1 @@
+../../../../TXChatCommon/src/TXChatCommonFramework/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/TencentOpenAPI.framework/Headers/QQApiInterfaceObject.h

@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "ab7f96fe-4481-4559-98be-3d5eb7230217++3412",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "ab7f96fe-4481-4559-98be-3d5eb7230217++3412" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "ab7f96fe-4481-4559-98be-3d5eb7230217++3412" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "41D22150-4FC6-465F-BAAF-BF1421C21A67",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "ab7f96fe-4481-4559-98be-3d5eb7230217++3412" : "txchat-teacher.git\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TXChatTeacher",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TXChatTeacher.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/jinyang.gao@192.168.0.102\/svn",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "ab7f96fe-4481-4559-98be-3d5eb7230217++3412"
+    }
+  ]
+}

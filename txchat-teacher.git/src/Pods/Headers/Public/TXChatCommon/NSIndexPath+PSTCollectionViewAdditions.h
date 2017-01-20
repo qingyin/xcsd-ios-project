@@ -1,0 +1,1 @@
+../../../TXChatCommon/src/TXChatCommonFramework/MWPhotoBrowser/Libraries/PSTCollectionView/NSIndexPath+PSTCollectionViewAdditions.h

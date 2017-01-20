@@ -1,0 +1,1 @@
+../../../TXChatCommon/src/TXChatCommonFramework/MWPhotoBrowser/Classes/MWPhotoBrowser.h

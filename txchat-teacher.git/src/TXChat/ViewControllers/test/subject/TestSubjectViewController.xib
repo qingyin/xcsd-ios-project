@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TestSubjectViewController">
+            <connections>
+                <outlet property="_contentView" destination="9Yx-DQ-bhb" id="hOC-yg-CYO"/>
+                <outlet property="_nextButton" destination="yxg-sK-niA" id="eK9-us-nxh"/>
+                <outlet property="_optionContainer" destination="ubs-qE-sBn" id="X6a-D4-x9M"/>
+                <outlet property="_previousButton" destination="AIV-Nc-1RI" id="2D3-eQ-VlK"/>
+                <outlet property="_scrollView" destination="7Pc-vW-9SP" id="POP-YY-EIp"/>
+                <outlet property="_subjectLabel" destination="Yii-7b-J6L" id="Nab-mw-DNb"/>
+                <outlet property="view" destination="wi0-6C-423" id="4iR-zr-fd1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="wi0-6C-423">
+            <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" id="9Yx-DQ-bhb">
+                    <rect key="frame" x="20" y="20" width="280" height="300"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" id="McL-1h-zdb">
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="12"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.12549019610000001" green="0.62352941179999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="7Pc-vW-9SP">
+                            <rect key="frame" x="0.0" y="20" width="280" height="260"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yii-7b-J6L" userLabel="题目">
+                                    <rect key="frame" x="12" y="0.0" width="256" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.12549019610000001" green="0.62352941179999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" id="ubs-qE-sBn" userLabel="选项">
+                                    <rect key="frame" x="0.0" y="50" width="400" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </scrollView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yxg-sK-niA">
+                    <rect key="frame" x="165" y="396" width="135" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" red="0.12549019610000001" green="0.62352941179999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="下一题">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="nextAction:" destination="-1" eventType="touchUpInside" id="Kg2-7i-GJW"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AIV-Nc-1RI">
+                    <rect key="frame" x="20" y="396" width="135" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" red="0.12549019610000001" green="0.62352941179999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="上一题">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="previousAction:" destination="-1" eventType="touchUpInside" id="YJQ-SI-Oty"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="386" y="346"/>
+        </view>
+    </objects>
+</document>

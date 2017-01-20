@@ -1,0 +1,66 @@
+{
+  "name": "TXChatCommon",
+  "version": "2.2.0",
+  "summary": "Tuxing inc ios common framework",
+  "description": "Tuxing inc ios common framework for tuxing chat app",
+  "homepage": "http://182.92.236.193/lingqing.wan/txchat_ios_common_framework/",
+  "license": "MIT",
+  "authors": {
+    "lingqingwan": ""
+  },
+  "source": {
+    "git": "http://182.92.236.193/ios/txchat-common.git",
+    "tag": "2.2.0"
+  },
+  "source_files": "src/TXChatCommonFramework/**/*.{c,h,m,mm}",
+  "resources": "src/TXChatCommonFramework/**/*.{bundle,xib,strings,png}",
+  "vendored_frameworks": "src/TXChatCommonFramework/**/*.framework",
+  "vendored_libraries": "src/TXChatCommonFramework/**/*.a",
+  "exclude_files": "Classes/Exclude",
+  "platforms": {
+    "ios": "7.0"
+  },
+  "ios": {
+    "dependencies": {
+      "RDVTabBarController": [
+
+      ],
+      "Masonry": [
+
+      ],
+      "SDiPhoneVersion": [
+        "~> 1.1.1"
+      ],
+      "NJKWebViewProgress": [
+
+      ],
+      "MJRefresh": [
+        "2.4.7"
+      ],
+      "Reachability": [
+
+      ],
+      "CocoaLumberjack": [
+
+      ],
+      "DateTools": [
+
+      ],
+      "APAddressBook": [
+
+      ],
+      "AFDownloadRequestOperation": [
+
+      ],
+      "MMPopupView": [
+        "1.5.1"
+      ],
+      "EaseMobSDK": [
+        "~> 2.2.1"
+      ],
+      "YYText": [
+
+      ]
+    }
+  }
+}

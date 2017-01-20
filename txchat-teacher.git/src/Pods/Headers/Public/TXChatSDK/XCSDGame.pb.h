@@ -1,0 +1,1 @@
+../../../TXChatSDK/src/TXChatSDK/XCSDGame.pb.h

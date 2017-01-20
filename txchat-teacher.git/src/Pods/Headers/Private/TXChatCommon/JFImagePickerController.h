@@ -1,0 +1,1 @@
+../../../TXChatCommon/src/TXChatCommonFramework/JFImagePickerController/JFImagePickerController.h
