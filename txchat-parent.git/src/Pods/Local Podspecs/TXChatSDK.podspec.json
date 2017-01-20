@@ -1,0 +1,36 @@
+{
+  "name": "TXChatSDK",
+  "version": "2.2.0",
+  "summary": "A sdk lib for tuxing chat.",
+  "description": "Tuxing chat ios sdk.",
+  "homepage": "http://182.92.236.193/lingqing.wan/txchat_ios_sdk/",
+  "license": "MIT",
+  "authors": {
+    "lingqingwan": ""
+  },
+  "source": {
+    "git": "http://182.92.236.193/ios/txchat_sdk.git",
+    "tag": "2.2.0"
+  },
+  "source_files": [
+    "Classes",
+    "src/TXChatSDK/**/*.{h,m}"
+  ],
+  "exclude_files": "Classes/Exclude",
+  "ios": {
+    "dependencies": {
+      "FMDB": [
+        "~> 2.5"
+      ],
+      "ProtocolBuffers": [
+        "~> 1.9.8"
+      ],
+      "Qiniu": [
+        "~> 7.0.11.1"
+      ],
+      "AFNetworking": [
+        "~> 2.5.4"
+      ]
+    }
+  }
+}

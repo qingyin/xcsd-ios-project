@@ -1,0 +1,1 @@
+../../../TXChatCommon/src/TXChatCommonFramework/GMImagePicker/GMAlbumsViewController.h

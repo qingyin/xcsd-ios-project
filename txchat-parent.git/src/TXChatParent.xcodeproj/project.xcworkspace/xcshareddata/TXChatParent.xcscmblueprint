@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "ab7f96fe-4481-4559-98be-3d5eb7230217++536",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "ab7f96fe-4481-4559-98be-3d5eb7230217++536" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "ab7f96fe-4481-4559-98be-3d5eb7230217++536" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5274A638-DF72-4DAB-AC8E-D2062AB7DA50",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "ab7f96fe-4481-4559-98be-3d5eb7230217++536" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TXChatParent",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ios\/txchat-parent.git\/src\/TXChatParent.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/jun.wu@192.168.0.102\/svn",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "ab7f96fe-4481-4559-98be-3d5eb7230217++536"
+    }
+  ]
+}

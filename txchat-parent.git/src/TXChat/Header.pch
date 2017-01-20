@@ -1,0 +1,83 @@
+//
+//  Header.pch
+//  TXChat
+//
+//  Created by Cloud on 15/6/3.
+//  Copyright (c) 2015年 lingiqngwan. All rights reserved.
+//
+
+#ifndef TXChat_Header_pch
+#define TXChat_Header_pch
+
+#ifdef __OBJC__
+#import <RDVTabBarController/RDVTabBarController.h>
+#import <RDVTabBarController/RDVTabBarItem.h>
+#import <EaseMob.h>
+#import <TXChatCommon/TXChatCommonPublicHeader.h>
+#import <TXChatSDK.h>
+#import "Utils.h"
+#import "MBProgressHUD.h"
+#import "TXProgressHUD.h"
+#import <Masonry.h>
+#import "TXCacheManage.h"
+//#import "TXUser+NSCoding.h"
+//#import "TXCheckIn+NSCoding.h"
+
+#import <TXChatSDK.h>
+#import "Utils.h"
+#import "MBProgressHUD.h"
+#import "NSString+ParentType.h"
+
+#import "Enum+Utils.h"
+#import "UIView+AlertView.h"
+#import "TXAsynRun.h"
+#import "NSObject+TXCountSub.h"
+#import <MobClick.h>
+#import "MJTXRefreshNormalHeader.h"
+#import "MJTXRefreshGifHeader.h"
+#import <NSString+Photo.h>
+#import <NSString+Video.h>
+#import <SDiPhoneVersion.h>
+#import <extobjc.h>
+#import <UIImageView+TXSDImage.h>
+#import <UIButton+TXSDImage.h>
+#import "TXPublicUtils.h"
+#endif
+
+//#import "TXAsynRun.h"
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+// block self
+//#define WEAKSELF typeof(self) __weak weakSelf = self;
+//#define STRONGSELF typeof(weakSelf) __strong strongSelf = weakSelf;
+// by mey
+
+#define WEAKTEMP __weak __typeof(&*self) tmpObject=self;
+#define WEAKSELF __weak __typeof(&*self) weakSelf=self;
+#define STRONGSELF __strong __typeof(self)strongSelf = weakSelf;
+
+
+#define iOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7 ?YES :NO)
+#define iPhone5 ([[UIScreen mainScreen] bounds].size.height > 480)
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#endif
+
+//#ifdef __cplusplus
+//#include "cocos2d.h"
+//#endif
+
+//开发测试服--1；正式服，提审上线的---0
+//且与 #define DEV_TEST_POD 一致
+#define DEV_TEST 1
+
+
+
+#endif

@@ -1,0 +1,177 @@
+PODS:
+  - AFDownloadRequestOperation (2.0.1):
+    - AFNetworking (~> 2.0)
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking/NSURLConnection (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - APAddressBook (0.1.11):
+    - APAddressBook/Core (= 0.1.11)
+  - APAddressBook/Core (0.1.11)
+  - Bugly (1.4.3)
+  - CNPPopupController (0.3.1)
+  - CocoaLumberjack (2.2.0):
+    - CocoaLumberjack/Default (= 2.2.0)
+    - CocoaLumberjack/Extensions (= 2.2.0)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.2.0):
+    - CocoaLumberjack/Default
+  - DateTools (1.7.0)
+  - EaseMobSDK (2.2.1)
+  - FLAnimatedImage (1.0.10)
+  - FMDB (2.6):
+    - FMDB/standard (= 2.6)
+  - FMDB/standard (2.6)
+  - libextobjc (0.4.1):
+    - libextobjc/EXTADT (= 0.4.1)
+    - libextobjc/EXTConcreteProtocol (= 0.4.1)
+    - libextobjc/EXTKeyPathCoding (= 0.4.1)
+    - libextobjc/EXTNil (= 0.4.1)
+    - libextobjc/EXTSafeCategory (= 0.4.1)
+    - libextobjc/EXTScope (= 0.4.1)
+    - libextobjc/EXTSelectorChecking (= 0.4.1)
+    - libextobjc/EXTSynthesize (= 0.4.1)
+    - libextobjc/NSInvocation+EXT (= 0.4.1)
+    - libextobjc/NSMethodSignature+EXT (= 0.4.1)
+    - libextobjc/RuntimeExtensions (= 0.4.1)
+    - libextobjc/UmbrellaHeader (= 0.4.1)
+  - libextobjc/EXTADT (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTConcreteProtocol (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTKeyPathCoding (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTNil (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSafeCategory (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTScope (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSelectorChecking (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSynthesize (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/NSInvocation+EXT (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/NSMethodSignature+EXT (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.4.1)
+  - libextobjc/UmbrellaHeader (0.4.1)
+  - libqrencode (3.4.2)
+  - Masonry (0.6.4)
+  - MJRefresh (2.4.7)
+  - MMPopupView (1.5.1):
+    - Masonry
+  - NJKWebViewProgress (0.2.3):
+    - NJKWebViewProgress/Core (= 0.2.3)
+    - NJKWebViewProgress/ProgressView (= 0.2.3)
+  - NJKWebViewProgress/Core (0.2.3)
+  - NJKWebViewProgress/ProgressView (0.2.3)
+  - ProtocolBuffers (1.9.9.2)
+  - Qiniu (7.0.11.1):
+    - AFNetworking (~> 2.0)
+  - RDVTabBarController (1.1.9)
+  - Reachability (3.2)
+  - SDiPhoneVersion (1.1.2)
+  - TCCopyableLabel (1.0.1)
+  - TXChatCommon (2.2.0):
+    - AFDownloadRequestOperation
+    - APAddressBook
+    - CocoaLumberjack
+    - DateTools
+    - EaseMobSDK (~> 2.2.1)
+    - Masonry
+    - MJRefresh (= 2.4.7)
+    - MMPopupView (= 1.5.1)
+    - NJKWebViewProgress
+    - RDVTabBarController
+    - Reachability
+    - SDiPhoneVersion (~> 1.1.1)
+    - YYText
+  - TXChatSDK (2.2.0):
+    - AFNetworking (~> 2.5.4)
+    - FMDB (~> 2.5)
+    - ProtocolBuffers (~> 1.9.8)
+    - Qiniu (~> 7.0.11.1)
+  - UMengAnalytics-NO-IDFA (3.5.17)
+  - YYText (0.9.19)
+  - ZipArchive (1.4.0)
+
+DEPENDENCIES:
+  - APAddressBook (= 0.1.11)
+  - Bugly (= 1.4.3)
+  - CNPPopupController
+  - FLAnimatedImage
+  - libextobjc
+  - libqrencode
+  - TCCopyableLabel
+  - TXChatCommon (from `http://182.92.236.193/ios/txchat-common.git`, tag `2.2.0`)
+  - TXChatSDK (from `http://182.92.236.193/ios/txchat-sdk.git`, tag `2.2.0`)
+  - UMengAnalytics-NO-IDFA (= 3.5.17)
+  - ZipArchive
+
+EXTERNAL SOURCES:
+  TXChatCommon:
+    :git: http://182.92.236.193/ios/txchat-common.git
+    :tag: 2.2.0
+  TXChatSDK:
+    :git: http://182.92.236.193/ios/txchat-sdk.git
+    :tag: 2.2.0
+
+CHECKOUT OPTIONS:
+  TXChatCommon:
+    :git: http://182.92.236.193/ios/txchat-common.git
+    :tag: 2.2.0
+  TXChatSDK:
+    :git: http://182.92.236.193/ios/txchat-sdk.git
+    :tag: 2.2.0
+
+SPEC CHECKSUMS:
+  AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  APAddressBook: 2c949367b190a993d2cce769a3b20bce8bcf000c
+  Bugly: b8d350be5047a468adf037cb016ab22762bc287c
+  CNPPopupController: 67dc2ca5a3f88cd49a27bb1b0aeb78a24d423d79
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
+  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  EaseMobSDK: 9a05523fe41bdd2edb15bac6b06ce490362d4019
+  FLAnimatedImage: e16a1e1cef08e4c509b47e4acbe3923f65c16135
+  FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
+  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
+  libqrencode: 43dc34b89af83ea4b07c409cd8e09c87aa3a1c9f
+  Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+  MJRefresh: 6eb2f61338f89f64fd628fd43debcf479381ff59
+  MMPopupView: 8bb979b1046a338a5186fd5159a5ffe0dbe61f8e
+  NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
+  ProtocolBuffers: 7111461618460961e6b7469177ec45ee551b4f0e
+  Qiniu: 080a6728b969f6b0e77c9de574ede37e78b0912b
+  RDVTabBarController: 67794f7a7a37f8e32f046f85ac67d06ab92d624a
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SDiPhoneVersion: c52245ccaab8142701e2e7fb8f0391ba3f255b76
+  TCCopyableLabel: 31958ac1969b8bf8e08ef7e711ee42e86b2f5215
+  TXChatCommon: bceee6aa4ed3007af9f0bb165928d050caee72f6
+  TXChatSDK: a03750b3bc2688111d554e7dd78c5dcbd4d600ac
+  UMengAnalytics-NO-IDFA: 601dab9ffe32f9de3fa0a6116768aed18a56f8a9
+  YYText: b823b71b99b526c4a81029ecb59f3d8172ed5c9a
+  ZipArchive: e25a4373192673e3229ac8d6e9f64a3e5713c966
+
+COCOAPODS: 0.39.0

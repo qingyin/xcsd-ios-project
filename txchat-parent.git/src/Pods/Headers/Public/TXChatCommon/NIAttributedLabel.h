@@ -1,0 +1,1 @@
+../../../TXChatCommon/src/TXChatCommonFramework/NimbusKit-AttributedLabel/NIAttributedLabel.h

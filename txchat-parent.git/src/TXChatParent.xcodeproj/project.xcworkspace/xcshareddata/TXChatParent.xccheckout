@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5274A638-DF72-4DAB-AC8E-D2062AB7DA50</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TXChatParent</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C620278BA8A212451F50057D55AA5392494FA113</key>
+		<string>http://182.92.236.193/ios/txchat-parent.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>src/TXChatParent.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C620278BA8A212451F50057D55AA5392494FA113</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://182.92.236.193/ios/txchat-parent.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C620278BA8A212451F50057D55AA5392494FA113</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C620278BA8A212451F50057D55AA5392494FA113</string>
+			<key>IDESourceControlWCCName</key>
+			<string>txchat-parent</string>
+		</dict>
+	</array>
+</dict>
+</plist>

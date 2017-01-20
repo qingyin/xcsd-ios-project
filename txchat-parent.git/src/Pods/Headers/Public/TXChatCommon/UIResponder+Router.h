@@ -1,0 +1,1 @@
+../../../TXChatCommon/src/TXChatCommonFramework/TXChatComponents/UIResponder+Router.h

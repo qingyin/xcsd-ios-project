@@ -1,0 +1,1 @@
+../../../TXChatCommon/src/TXChatCommonFramework/DeviceUtil/delegates/EMCDDeviceManagerDelegate.h

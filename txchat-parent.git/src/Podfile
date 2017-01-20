@@ -1,0 +1,19 @@
+# Uncomment this line to define a global platform for your project
+platform :ios,'7.0'
+
+inhibit_all_warnings!
+source 'https://gitcafe.com/akuandev/Specs.git'
+source 'http://182.92.236.193/ios/Specs.git'
+
+pod 'TXChatCommon',:git=>'http://182.92.236.193/ios/txchat-common.git',:tag=>'2.2.0'
+pod 'TXChatSDK',:git=>'http://182.92.236.193/ios/txchat-sdk.git',:tag=>'2.2.0'
+pod 'ZipArchive'
+pod 'UMengAnalytics-NO-IDFA', '3.5.17'
+pod 'libqrencode'
+pod 'CNPPopupController'
+pod 'APAddressBook', '0.1.11'
+pod 'FLAnimatedImage'
+pod 'libextobjc'
+pod 'Bugly', '1.4.3'
+pod 'TCCopyableLabel'
+pod 'Meiqia', '~> 3.3.1'
